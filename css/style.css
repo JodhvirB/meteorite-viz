@@ -1,0 +1,619 @@
+/* ============================================
+   METEORITE IMPACTS — Dark Space Theme
+   ============================================ */
+
+:root {
+  --bg-primary: #060613;
+  --bg-secondary: #0c0c24;
+  --bg-panel: rgba(12, 12, 36, 0.85);
+  --text-primary: #e8e8f0;
+  --text-secondary: #8888aa;
+  --text-muted: #555577;
+  --accent: #ff6b35;
+  --accent-glow: rgba(255, 107, 53, 0.4);
+  --cyan: #00d4ff;
+  --cyan-glow: rgba(0, 212, 255, 0.3);
+  --border: rgba(255, 255, 255, 0.06);
+  --panel-radius: 12px;
+  --font-main: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display: 'Space Grotesk', 'Inter', sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-main);
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---- Stars Background ---- */
+#stars, #stars2 {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+#stars {
+  background:
+    radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,0.8), transparent),
+    radial-gradient(1px 1px at 30% 60%, rgba(255,255,255,0.6), transparent),
+    radial-gradient(1px 1px at 50% 10%, rgba(255,255,255,0.5), transparent),
+    radial-gradient(1px 1px at 70% 80%, rgba(255,255,255,0.7), transparent),
+    radial-gradient(1px 1px at 90% 40%, rgba(255,255,255,0.4), transparent),
+    radial-gradient(1.5px 1.5px at 15% 85%, rgba(255,255,255,0.9), transparent),
+    radial-gradient(1px 1px at 45% 45%, rgba(255,255,255,0.5), transparent),
+    radial-gradient(1.5px 1.5px at 80% 15%, rgba(255,255,255,0.7), transparent),
+    radial-gradient(1px 1px at 60% 70%, rgba(255,255,255,0.4), transparent),
+    radial-gradient(1px 1px at 25% 35%, rgba(255,255,255,0.6), transparent);
+  animation: twinkle 8s ease-in-out infinite alternate;
+}
+
+#stars2 {
+  background:
+    radial-gradient(1px 1px at 5% 50%, rgba(255,255,255,0.5), transparent),
+    radial-gradient(1px 1px at 20% 10%, rgba(255,255,255,0.4), transparent),
+    radial-gradient(1.5px 1.5px at 40% 90%, rgba(255,255,255,0.8), transparent),
+    radial-gradient(1px 1px at 55% 30%, rgba(255,255,255,0.3), transparent),
+    radial-gradient(1px 1px at 75% 55%, rgba(255,255,255,0.6), transparent),
+    radial-gradient(1px 1px at 95% 75%, rgba(255,255,255,0.5), transparent),
+    radial-gradient(1px 1px at 35% 20%, rgba(255,255,255,0.4), transparent),
+    radial-gradient(1.5px 1.5px at 65% 95%, rgba(255,255,255,0.7), transparent);
+  animation: twinkle 12s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes twinkle {
+  0% { opacity: 0.6; }
+  100% { opacity: 1; }
+}
+
+/* ---- Header ---- */
+#header {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  padding: 10px 20px 4px;
+  background: linear-gradient(180deg, rgba(6,6,19,0.95) 0%, rgba(6,6,19,0) 100%);
+}
+
+#header h1 {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  color: var(--text-primary);
+}
+
+#header h1 .accent {
+  font-size: 24px;
+  margin-right: 4px;
+}
+
+#header .subtitle {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-top: 2px;
+  font-weight: 300;
+}
+
+/* ---- Main Layout ---- */
+#app {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  height: calc(100vh - 170px);
+  padding: 0 16px;
+  gap: 12px;
+}
+
+/* ---- Panels ---- */
+#filters-panel, #legend-panel {
+  width: 190px;
+  min-width: 170px;
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: var(--panel-radius);
+  padding: 16px;
+  backdrop-filter: blur(12px);
+  flex-shrink: 0;
+  margin-top: 10px;
+  max-height: calc(100vh - 200px);
+  overflow-y: auto;
+}
+
+#filters-panel h3, #legend-panel h3 {
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-secondary);
+  margin-bottom: 12px;
+}
+
+/* ---- Globe ---- */
+#globe-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  max-width: 700px;
+  height: 100%;
+}
+
+#globe-wrapper {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#globe {
+  cursor: grab;
+  filter: drop-shadow(0 0 40px rgba(0, 140, 255, 0.15));
+}
+
+#globe:active {
+  cursor: grabbing;
+}
+
+/* Globe atmosphere glow */
+.globe-atmosphere {
+  fill: none;
+  stroke: rgba(100, 180, 255, 0.2);
+  stroke-width: 2;
+}
+
+.globe-ocean {
+  fill: #0a1628;
+}
+
+.globe-land {
+  fill: #1a2d45;
+  stroke: #253d5a;
+  stroke-width: 0.4;
+}
+
+.globe-border {
+  fill: none;
+  stroke: #253d5a;
+  stroke-width: 0.3;
+}
+
+.globe-graticule {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.03);
+  stroke-width: 0.5;
+}
+
+/* ---- Stats Panel ---- */
+#stats-panel {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 8px;
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 24px;
+  backdrop-filter: blur(12px);
+}
+
+.stat {
+  text-align: center;
+}
+
+.stat-value {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--cyan);
+}
+
+.stat-label {
+  display: block;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+/* ---- Meteorite Impacts ---- */
+.impact {
+  pointer-events: all;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.impact:hover {
+  opacity: 1 !important;
+}
+
+.impact-ring {
+  fill: none;
+  pointer-events: none;
+}
+
+/* ---- Timeline ---- */
+#timeline-container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 20;
+  background: linear-gradient(0deg, rgba(6,6,19,0.98) 0%, rgba(6,6,19,0.92) 80%, rgba(6,6,19,0) 100%);
+  padding: 6px 20px 10px;
+}
+
+#timeline-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 4px;
+  padding: 0 40px;
+}
+
+.control-btn {
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.control-btn:hover {
+  background: rgba(255, 107, 53, 0.15);
+  border-color: var(--accent);
+  box-shadow: 0 0 12px var(--accent-glow);
+}
+
+#speed-controls {
+  display: flex;
+  gap: 4px;
+}
+
+.speed-btn {
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 4px 10px;
+  color: var(--text-muted);
+  font-size: 11px;
+  font-family: var(--font-display);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.speed-btn:hover {
+  color: var(--text-secondary);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.speed-btn.active {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: rgba(255, 107, 53, 0.1);
+}
+
+#current-year-display {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--accent);
+  margin-left: auto;
+  min-width: 80px;
+  text-align: right;
+  text-shadow: 0 0 20px var(--accent-glow);
+}
+
+#timeline-svg-wrapper {
+  width: 100%;
+  padding: 0 40px;
+}
+
+#timeline-svg {
+  width: 100%;
+  overflow: visible;
+}
+
+.timeline-bar-bg {
+  fill: rgba(255, 255, 255, 0.04);
+  rx: 3;
+}
+
+.timeline-bar {
+  fill: rgba(255, 107, 53, 0.25);
+  rx: 3;
+}
+
+.timeline-histogram-bar {
+  fill: rgba(0, 212, 255, 0.2);
+  stroke: rgba(0, 212, 255, 0.3);
+  stroke-width: 0.5;
+  transition: fill 0.15s;
+}
+
+.timeline-histogram-bar.active {
+  fill: rgba(0, 212, 255, 0.5);
+  stroke: rgba(0, 212, 255, 0.7);
+}
+
+.timeline-handle {
+  fill: var(--accent);
+  stroke: white;
+  stroke-width: 2;
+  cursor: ew-resize;
+  filter: drop-shadow(0 0 6px var(--accent-glow));
+  transition: r 0.15s;
+}
+
+.timeline-handle:hover {
+  r: 9;
+}
+
+.timeline-tick-label {
+  fill: var(--text-muted);
+  font-size: 10px;
+  font-family: var(--font-display);
+}
+
+.timeline-brush .selection {
+  fill: rgba(255, 107, 53, 0.15);
+  stroke: var(--accent);
+  stroke-width: 1;
+  stroke-dasharray: 3 2;
+  rx: 3;
+}
+
+/* ---- Tooltip ---- */
+.tooltip {
+  position: fixed;
+  z-index: 100;
+  background: rgba(8, 8, 28, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  padding: 12px 16px;
+  pointer-events: none;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  max-width: 260px;
+  transition: opacity 0.15s;
+}
+
+.tooltip.hidden {
+  opacity: 0;
+}
+
+.tooltip-name {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+
+.tooltip-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 12px;
+  padding: 2px 0;
+}
+
+.tooltip-label {
+  color: var(--text-muted);
+}
+
+.tooltip-value {
+  color: var(--text-secondary);
+  font-weight: 500;
+  text-align: right;
+}
+
+.tooltip-value.accent {
+  color: var(--accent);
+}
+
+/* ---- Filter Controls ---- */
+.filter-group {
+  margin-bottom: 16px;
+}
+
+.filter-label {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.filter-label span {
+  color: var(--cyan);
+  font-family: var(--font-display);
+}
+
+.filter-btn {
+  display: block;
+  width: 100%;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 6px 10px;
+  color: var(--text-secondary);
+  font-size: 11px;
+  font-family: var(--font-main);
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-bottom: 4px;
+  text-align: left;
+}
+
+.filter-btn:hover {
+  border-color: rgba(255, 255, 255, 0.15);
+  color: var(--text-primary);
+}
+
+.filter-btn.active {
+  border-color: var(--cyan);
+  color: var(--cyan);
+  background: rgba(0, 212, 255, 0.08);
+}
+
+.filter-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+
+.btn-reset {
+  width: 100%;
+  background: transparent;
+  border: 1px solid rgba(255, 107, 53, 0.3);
+  border-radius: 8px;
+  padding: 8px;
+  color: var(--accent);
+  font-size: 11px;
+  font-family: var(--font-display);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-top: 8px;
+}
+
+.btn-reset:hover {
+  background: rgba(255, 107, 53, 0.1);
+  border-color: var(--accent);
+}
+
+/* ---- Mass Legend ---- */
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+  font-size: 11px;
+  color: var(--text-secondary);
+}
+
+.legend-circle {
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* ---- Fall/Found indicator ---- */
+.fall-indicator {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.fall-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 10px;
+  color: var(--text-muted);
+}
+
+/* ---- Attribution ---- */
+#attribution {
+  position: fixed;
+  bottom: 86px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 15;
+  font-size: 10px;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+#attribution a {
+  color: var(--text-secondary);
+  text-decoration: none;
+}
+
+#attribution a:hover {
+  color: var(--cyan);
+}
+
+/* ---- Scrollbar ---- */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+}
+
+/* ---- Range slider styling ---- */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 2px;
+  outline: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--cyan);
+  cursor: pointer;
+  border: 2px solid white;
+  box-shadow: 0 0 8px var(--cyan-glow);
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--cyan);
+  cursor: pointer;
+  border: 2px solid white;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 900px) {
+  #filters-panel, #legend-panel {
+    display: none;
+  }
+  #app {
+    padding: 0 8px;
+  }
+}

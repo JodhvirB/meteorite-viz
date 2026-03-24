@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meteorite Impacts — Earth's Cosmic History</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Stars background -->
+  <div id="stars"></div>
+  <div id="stars2"></div>
+
+  <!-- Header -->
+  <header id="header">
+    <div class="header-content">
+      <h1><span class="accent">☄</span> Meteorite Impacts</h1>
+      <p class="subtitle">Exploring Earth's Cosmic History — 32,000+ recorded meteorite landings</p>
+    </div>
+  </header>
+
+  <!-- Main layout -->
+  <main id="app">
+    <!-- Left: Filters -->
+    <aside id="filters-panel">
+      <h3>Filters</h3>
+      <div id="filter-controls"></div>
+      <button id="reset-filters" class="btn-reset">Reset All</button>
+    </aside>
+
+    <!-- Center: Globe -->
+    <section id="globe-container">
+      <div id="globe-wrapper">
+        <svg id="globe"></svg>
+      </div>
+      <!-- Stats overlay -->
+      <div id="stats-panel">
+        <div class="stat">
+          <span class="stat-value" id="stat-count">0</span>
+          <span class="stat-label">Meteorites</span>
+        </div>
+        <div class="stat">
+          <span class="stat-value" id="stat-largest">—</span>
+          <span class="stat-label">Largest (kg)</span>
+        </div>
+        <div class="stat">
+          <span class="stat-value" id="stat-year">—</span>
+          <span class="stat-label">Year Range</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Right: Legend -->
+    <aside id="legend-panel">
+      <h3>Mass Legend</h3>
+      <div id="mass-legend"></div>
+      <h3 style="margin-top:16px;">Classification</h3>
+      <div id="class-legend"></div>
+    </aside>
+  </main>
+
+  <!-- Timeline at bottom -->
+  <footer id="timeline-container">
+    <div id="timeline-controls">
+      <button id="play-btn" class="control-btn" title="Play/Pause">
+        <svg id="play-icon" viewBox="0 0 24 24" width="20" height="20"><polygon points="5,3 19,12 5,21" fill="currentColor"/></svg>
+        <svg id="pause-icon" viewBox="0 0 24 24" width="20" height="20" style="display:none"><rect x="5" y="3" width="4" height="18" fill="currentColor"/><rect x="15" y="3" width="4" height="18" fill="currentColor"/></svg>
+      </button>
+      <div id="speed-controls">
+        <button class="speed-btn active" data-speed="1">1×</button>
+        <button class="speed-btn" data-speed="3">3×</button>
+        <button class="speed-btn" data-speed="10">10×</button>
+      </div>
+      <span id="current-year-display">860</span>
+    </div>
+    <div id="timeline-svg-wrapper">
+      <svg id="timeline-svg"></svg>
+    </div>
+  </footer>
+
+  <!-- Tooltip -->
+  <div id="tooltip" class="tooltip hidden"></div>
+
+  <!-- Source attribution -->
+  <div id="attribution">
+    Data: <a href="https://data.nasa.gov/dataset/meteorite-landings" target="_blank">NASA Meteorite Landings</a> via The Meteoritical Society
+    &nbsp;|&nbsp; Built with <a href="https://d3js.org" target="_blank">D3.js</a>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/topojson-client@3"></script>
+  <script src="js/tooltip.js"></script>
+  <script src="js/globe.js"></script>
+  <script src="js/impacts.js"></script>
+  <script src="js/timeline.js"></script>
+  <script src="js/filters.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

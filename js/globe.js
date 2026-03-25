@@ -103,8 +103,7 @@ const Globe = (() => {
     // Land & borders placeholder
     g.append('g').attr('id', 'land-group');
 
-    // Impacts layer
-    svg.append('g').attr('id', 'impacts-layer');
+    // (Impacts rendered on canvas overlay, not SVG)
 
     // Setup interactions
     setupDrag();
@@ -226,7 +225,10 @@ const Globe = (() => {
     return [width / 2, height / 2];
   }
 
-  return { init, render, onRotate, getProjection, getPath, getSvg, getRadius, getCenter };
+  function getWidth() { return width; }
+  function getHeight() { return height; }
+
+  return { init, render, onRotate, getProjection, getPath, getSvg, getRadius, getCenter, getWidth, getHeight };
 })();
 
 
